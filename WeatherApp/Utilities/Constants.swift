@@ -9,7 +9,7 @@
 import Foundation
 
 final class Constants {
-    static let googleKey = "AIzaSyAU70n3S-oCQoltJTUdqnaUqiczOHlx854"
+    static let googleKey = "AIzaSyATR6-Ufi-cwPrKi0N1afC2aXwjRJBXGQ8"
 }
 
 extension Notification.Name {

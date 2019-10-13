@@ -29,9 +29,6 @@ final class SearchViewController: UIViewController {
         case search, recents
     }
     var delegate: SearchViewControllerDelegate?
-    var shownIndexes : [IndexPath] = []
-    let CELL_HEIGHT : CGFloat = 40
-    var originalCellRect: CGRect = .zero
     lazy var progressView: LinearProgressBar = {
         let progressBar = LinearProgressBar()
         progressBar.backgroundColor = .white
@@ -52,6 +49,11 @@ final class SearchViewController: UIViewController {
             self.tableView.dataSource = self
             self.tableView.delegate = self
             self.tableView.keyboardDismissMode = .onDrag
+            self.tableView.estimatedRowHeight = 44
+            self.tableView.rowHeight = UITableView.automaticDimension
+            
+            self.tableView.estimatedSectionHeaderHeight = 44
+            self.tableView.sectionHeaderHeight = UITableView.automaticDimension
         }
     }
     @IBOutlet weak var textFieldSearch: UITextField! {
@@ -184,24 +186,6 @@ extension SearchViewController: UITableViewDelegate {
         switch TableSection(rawValue: section)! {
         case .search: return self.objectViewModel.count == 0 ? 0 : 40
         case .recents: return self.objectViewModel.countForRecents == 0 ? 0 : 40
-        }
-    }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        if (shownIndexes.contains(indexPath) == false) {
-            shownIndexes.append(indexPath)
-
-            cell.transform = CGAffineTransform(translationX: 0, y: UITableView.automaticDimension)
-            cell.layer.shadowColor = UIColor.black.cgColor
-            cell.layer.shadowOffset = CGSize(width: 10, height: 10)
-            cell.alpha = 0
-
-            UIView.beginAnimations("rotation", context: nil)
-            UIView.setAnimationDuration(0.5)
-            cell.transform = CGAffineTransform(translationX: 0, y: 0)
-            cell.alpha = 1
-            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-            UIView.commitAnimations()
         }
     }
 }

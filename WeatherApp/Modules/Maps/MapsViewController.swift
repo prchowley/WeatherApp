@@ -121,10 +121,24 @@ final class MapsViewController: UIViewController {
     /// This will update the camera position of the map with latest coordinate
     /// - Parameter coordinate: user's selected coordinate or my location for the first time
     func updateMapCamera(to coordinate: CLLocationCoordinate2D) {
-        self.mapView.animate(to: .init(target: coordinate, zoom: 5))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.mapView.animate(toZoom: 15);
+        
+        
+        self.mapsAnimationCompletion(animations: {
+            self.mapView.animate(toZoom: 5);
+        }) {
+            self.mapsAnimationCompletion(animations: {
+                self.mapView.animate(to: .init(target: coordinate, zoom: 5))
+            }) {
+                self.mapView.animate(toZoom: 15);
+            }
         }
+    }
+    
+    private func mapsAnimationCompletion(animations: () -> Void, completion: (() -> Void)!) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        animations()
+        CATransaction.commit()
     }
     
     
