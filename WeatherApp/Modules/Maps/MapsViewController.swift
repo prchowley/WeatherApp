@@ -2,7 +2,7 @@
 //  MapsViewController.swift
 //  WeatherApp
 //
-//  Created by Priyabrata Chowley on 11/10/19.
+//  Created by Priyabrata Chowley on 13/10/19.
 //  Copyright © 2019 Priyabrata Chowley. All rights reserved.
 //
 
@@ -22,6 +22,7 @@ final class MapsViewController: UIViewController {
     @IBOutlet weak var buttonGPS: UIButton! {
         didSet {
             self.buttonGPS.addControlEvent(.touchUpInside) {
+                self.marker.tracksViewChanges = true
                 self.objectViewModel.getLocation()
             }
         }
@@ -94,17 +95,22 @@ final class MapsViewController: UIViewController {
         
         self.updateMapCamera(to: coordinate)
         self.viewWeather.refresh(with: coordinate.latitude, longitude: coordinate.longitude)
-        self.placeMarker(to: coordinate)
         
         self.buttonGPS.tintColor = self.objectViewModel.isCurrentLocation ? UIColor(red:0.21, green:0.60, blue:0.91, alpha:1.0) : .darkGray
     }
     
     /// Map marker which will be visible on each selection on the search field
     lazy var marker: GMSMarker = {
+        let customMarkerView = MarkerView(frame: .init(x: 0, y: 0, width: 100, height: 60))
         let marker = GMSMarker()
         marker.appearAnimation = .pop
         marker.map = self.mapView
-        marker.iconView = MarkerView(frame: .init(x: 0, y: 0, width: 100, height: 60))
+        marker.iconView = customMarkerView
+        marker.tracksViewChanges = true
+        customMarkerView.refreshed = {
+            marker.tracksViewChanges = false
+        }
+        
         return marker
     }()
     
@@ -122,7 +128,6 @@ final class MapsViewController: UIViewController {
     /// - Parameter coordinate: user's selected coordinate or my location for the first time
     func updateMapCamera(to coordinate: CLLocationCoordinate2D) {
         
-        
         self.mapsAnimationCompletion(animations: {
             self.mapView.animate(toZoom: 5);
         }) {
@@ -130,6 +135,7 @@ final class MapsViewController: UIViewController {
                 self.mapView.animate(to: .init(target: coordinate, zoom: 5))
             }) {
                 self.mapView.animate(toZoom: 15);
+                self.placeMarker(to: coordinate)
             }
         }
     }
@@ -180,11 +186,13 @@ final class MapsViewController: UIViewController {
 
 extension MapsViewController: SearchViewControllerDelegate {
     func select(_ place: GMSPlace) {
+        marker.tracksViewChanges = true
         self.objectViewModel.isCurrentLocation = false
         self.objectViewModel.placeName = place.formattedAddress ?? ""
         self.updateUI(with: place.coordinate)
     }
     func select(_ recent: DB_Location) {
+        marker.tracksViewChanges = true
         self.objectViewModel.isCurrentLocation = false
         self.objectViewModel.placeName = recent.name ?? ""
         self.updateUI(with: CLLocationCoordinate2D(latitude: recent.latitude, longitude: recent.longitude))

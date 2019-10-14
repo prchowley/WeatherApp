@@ -17,6 +17,8 @@ final class MarkerView: UIView {
     @IBOutlet private weak var view: UIView!
     @IBOutlet private weak var labelTemperature: UILabel!
     
+    var refreshed: ()->() = {}
+    
     // MARK:- Initializers -
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,8 +48,9 @@ final class MarkerView: UIView {
             if let weather = notification.userInfo?["weather"] as? WeatherViewModel {
                 weakSelf.loader.stopAnimating()
                 weakSelf.labelTemperature.text = weather.temperature
-                weakSelf.imageViewCondition.sd_setImage(with: URL(string: "https://openweathermap.org/img/w/\(weather.iconName).png"))
-                weakSelf.refreshView()
+                weakSelf.imageViewCondition.sd_setImage(with: URL(string: "https://openweathermap.org/img/w/\(weather.iconName).png")) { (_, _, _, _) in
+                    weakSelf.refreshView()
+                }
             }
         }
     }
@@ -56,6 +59,8 @@ final class MarkerView: UIView {
         self.labelTemperature.isHidden = self.loader.isAnimating
         self.labelTemperatureUnit.isHidden = self.loader.isAnimating
         self.imageViewCondition.isHidden = self.loader.isAnimating
+        
+        self.refreshed()
     }
 
 }

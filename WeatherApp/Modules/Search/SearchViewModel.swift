@@ -2,7 +2,7 @@
 //  SearchViewModel.swift
 //  WeatherApp
 //
-//  Created by Priyabrata Chowley on 12/10/19.
+//  Created by Priyabrata Chowley on 13/10/19.
 //  Copyright © 2019 Priyabrata Chowley. All rights reserved.
 //
 
@@ -23,10 +23,13 @@ final class SearchViewModel: NSObject {
             self.completion(.success(false, ""))
         }
     }
+    lazy var fetcher: GMSAutocompleteFetcher = {
+        let fetcher = GMSAutocompleteFetcher()
+        fetcher.delegate = self
+        return fetcher
+    }()
     var strSearchKey: String = "" {
         didSet {
-            let fetcher = GMSAutocompleteFetcher()
-            fetcher.delegate = self
             fetcher.sourceTextHasChanged(strSearchKey)
             self.completion(.loader(true))
         }

@@ -2,7 +2,7 @@
 //  LocationManager.swift
 //  WeatherApp
 //
-//  Created by Priyabrata Chowley on 12/10/19.
+//  Created by Priyabrata Chowley on 13/10/19.
 //  Copyright © 2019 Priyabrata Chowley. All rights reserved.
 //
 

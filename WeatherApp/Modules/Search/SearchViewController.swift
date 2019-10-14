@@ -2,7 +2,7 @@
 //  SearchViewController.swift
 //  WeatherApp
 //
-//  Created by Priyabrata Chowley on 11/10/19.
+//  Created by Priyabrata Chowley on 13/10/19.
 //  Copyright © 2019 Priyabrata Chowley. All rights reserved.
 //
 
@@ -25,8 +25,11 @@ final class SearchViewController: UIViewController {
             self.objectViewModel.strSearchKey = textFieldValue
         }
     }
-    enum TableSection: Int {
+    enum TableSection: Int, CaseIterable {
         case search, recents
+        static subscript(_ index: Int)-> TableSection {
+            return TableSection(rawValue: index) ?? .search
+        }
     }
     var delegate: SearchViewControllerDelegate?
     lazy var progressView: LinearProgressBar = {
@@ -87,7 +90,22 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.textFieldSearch.becomeFirstResponder()
+    }
+
+    // MARK:- Setup -
+    func setup() {
+        setupData()
+        setupUI()
+    }
+    func setupData() {
         
+        progressView.startAnimation()
         self.objectViewModel.completion = { [weak self] type in
             guard let weakSelf = self else { return }
             switch type {
@@ -108,12 +126,11 @@ final class SearchViewController: UIViewController {
             }
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.textFieldSearch.becomeFirstResponder()
+    func setupUI() {
+        
     }
-    
+        
+    // MARK:- Actions -
     func actionBack() {
         if self.textFieldSearch.canResignFirstResponder { self.textFieldSearch.resignFirstResponder() }
         self.navigationController?.popViewController(animated: true)
@@ -125,12 +142,13 @@ final class SearchViewController: UIViewController {
     }
 }
 
+// MARK:- UITableViewDataSource -
 extension SearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return TableSection.allCases.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch TableSection(rawValue: section)! {
+        switch TableSection[section] {
         case .search: return self.objectViewModel.count
         case .recents: return self.objectViewModel.countForRecents
         }
@@ -138,7 +156,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchLocationTableViewCell", for: indexPath) as! SearchLocationTableViewCell
         
-        switch TableSection(rawValue: indexPath.section)! {
+        switch TableSection[indexPath.section] {
         case .search: cell.location = self.objectViewModel[indexPath.row]
         case .recents: cell.dbLocation = self.objectViewModel.recentsPlaces[indexPath.row]
         }
@@ -146,9 +164,10 @@ extension SearchViewController: UITableViewDataSource {
     }
 }
 
+// MARK:- UITableViewDelegate -
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch TableSection(rawValue: indexPath.section)! {
+        switch TableSection[indexPath.section] {
         case .search:
             self.objectViewModel.getPlace(at: indexPath) { [weak self] (place) in
                 self?.delegate?.select(place)
@@ -175,7 +194,7 @@ extension SearchViewController: UITableViewDelegate {
         headerView.addSubview(headerLabel)
 
         
-        switch TableSection(rawValue: section)! {
+        switch TableSection[section] {
         case .search: headerLabel.text = "Search Results"
         case .recents: headerLabel.text = "Recents"
         }
@@ -183,7 +202,7 @@ extension SearchViewController: UITableViewDelegate {
         return headerView
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch TableSection(rawValue: section)! {
+        switch TableSection[section] {
         case .search: return self.objectViewModel.count == 0 ? 0 : 40
         case .recents: return self.objectViewModel.countForRecents == 0 ? 0 : 40
         }
