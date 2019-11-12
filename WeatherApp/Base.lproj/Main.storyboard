@@ -147,6 +147,7 @@
                         <constraints>
                             <constraint firstItem="LX4-2U-FeY" firstAttribute="bottom" secondItem="69K-xw-108" secondAttribute="bottom" id="2ob-qz-kJZ"/>
                             <constraint firstItem="LX4-2U-FeY" firstAttribute="trailing" secondItem="69K-xw-108" secondAttribute="trailing" id="33L-RF-CI9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Qhb-ub-h4A" secondAttribute="bottom" id="6GC-vS-hdW"/>
                             <constraint firstItem="8DY-3n-U6r" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7iF-Qg-CY3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="69K-xw-108" secondAttribute="trailing" constant="10" id="9OS-bV-AMX"/>
                             <constraint firstItem="69K-xw-108" firstAttribute="top" secondItem="8DY-3n-U6r" secondAttribute="bottom" constant="10" id="AYW-3G-sGb"/>
@@ -160,7 +161,6 @@
                             <constraint firstItem="eeD-fE-gUA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZUK-U0-cPJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8DY-3n-U6r" secondAttribute="trailing" id="bSf-iQ-Iyb"/>
                             <constraint firstItem="69K-xw-108" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="dmT-pj-kgB"/>
-                            <constraint firstItem="Qhb-ub-h4A" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="eUe-cv-uTp"/>
                             <constraint firstItem="LX4-2U-FeY" firstAttribute="leading" secondItem="69K-xw-108" secondAttribute="leading" id="jON-5g-5mO"/>
                             <constraint firstAttribute="bottom" secondItem="iix-Tg-2nn" secondAttribute="bottom" id="qem-Jy-BE8"/>
                             <constraint firstAttribute="trailing" secondItem="iix-Tg-2nn" secondAttribute="trailing" id="r66-0K-1YX"/>
@@ -173,7 +173,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="buttonGPS" destination="H5L-dn-HKj" id="qdF-B5-N9s"/>
-                        <outlet property="constBottomViewDrag" destination="eUe-cv-uTp" id="6jX-mD-RIP"/>
+                        <outlet property="constBottomViewDrag" destination="JwE-73-Ifw" id="XcY-xc-g0I"/>
                         <outlet property="mapView" destination="iix-Tg-2nn" id="O3K-Dk-NMp"/>
                         <outlet property="textFieldSearch" destination="H55-hi-1PZ" id="ZwK-wZ-2sF"/>
                         <outlet property="viewAnimationPlaceholder" destination="LX4-2U-FeY" id="gho-al-785"/>

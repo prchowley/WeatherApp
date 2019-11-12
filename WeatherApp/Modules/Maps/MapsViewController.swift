@@ -31,7 +31,7 @@ final class MapsViewController: UIViewController {
     /// Bottom constraint for the weather view
     @IBOutlet weak var constBottomViewDrag: NSLayoutConstraint! {
         didSet {
-            self.constBottomViewDrag.constant = 200
+            self.constBottomViewDrag.constant = -200
         }
     }
     
@@ -108,7 +108,7 @@ final class MapsViewController: UIViewController {
         marker.iconView = customMarkerView
         marker.tracksViewChanges = true
         customMarkerView.refreshed = {
-            marker.tracksViewChanges = false
+            marker.tracksViewChanges = true
         }
         
         return marker
@@ -165,7 +165,7 @@ final class MapsViewController: UIViewController {
     
     /// This will hide the bottom window, if user taps on outside or every second tap on the marker closing the window
     func hideBottomView() {
-        self.constBottomViewDrag.constant = 200
+        self.constBottomViewDrag.constant = -200
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }

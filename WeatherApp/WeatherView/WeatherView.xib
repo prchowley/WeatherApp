@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherView" customModule="WeatherApp" customModuleProvider="target">
             <connections>
-                <outlet property="constHeightBottomView" destination="86Z-xy-pMv" id="uT4-2W-c1u"/>
                 <outlet property="imageViewWeatherCondition" destination="jXw-at-gQv" id="a6x-Ro-FhM"/>
                 <outlet property="labelHumidity" destination="fLF-SA-1Sa" id="ezW-if-5AR"/>
                 <outlet property="labelTemperature" destination="I97-tG-mEl" id="EcT-k1-BLf"/>
@@ -81,13 +80,13 @@
                     <constraints>
                         <constraint firstItem="33r-BE-ZVg" firstAttribute="top" secondItem="xaK-7H-thV" secondAttribute="top" id="01W-Td-3jx"/>
                         <constraint firstItem="esf-R4-l8X" firstAttribute="leading" secondItem="I97-tG-mEl" secondAttribute="leading" id="3TY-m3-uzG"/>
-                        <constraint firstAttribute="height" constant="130" id="86Z-xy-pMv"/>
                         <constraint firstItem="fLF-SA-1Sa" firstAttribute="bottom" secondItem="xaK-7H-thV" secondAttribute="bottom" id="9FK-c6-qqq"/>
                         <constraint firstAttribute="trailing" secondItem="jXw-at-gQv" secondAttribute="trailing" constant="10" id="EXw-8R-iNl"/>
                         <constraint firstItem="I97-tG-mEl" firstAttribute="leading" secondItem="Sbh-af-Z6X" secondAttribute="leading" constant="10" id="GVx-uV-Im0"/>
                         <constraint firstItem="VFa-LP-c43" firstAttribute="top" secondItem="I97-tG-mEl" secondAttribute="top" constant="2" id="Gsa-PI-067"/>
                         <constraint firstItem="fLF-SA-1Sa" firstAttribute="leading" secondItem="xaK-7H-thV" secondAttribute="trailing" constant="8" id="Lrl-9E-Gqr"/>
                         <constraint firstItem="33r-BE-ZVg" firstAttribute="leading" secondItem="fLF-SA-1Sa" secondAttribute="trailing" constant="8" id="N8I-YG-MTo"/>
+                        <constraint firstAttribute="height" constant="130" id="QEf-xO-rGC"/>
                         <constraint firstItem="xaK-7H-thV" firstAttribute="top" secondItem="esf-R4-l8X" secondAttribute="bottom" constant="20" id="Wpo-5T-eaw"/>
                         <constraint firstItem="pQL-GU-lpt" firstAttribute="bottom" secondItem="33r-BE-ZVg" secondAttribute="bottom" id="c1s-HI-hms"/>
                         <constraint firstItem="esf-R4-l8X" firstAttribute="top" secondItem="I97-tG-mEl" secondAttribute="bottom" id="ePS-82-MgW"/>
